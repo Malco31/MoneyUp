@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Log out | {% endblock %}
+
+{% block content %}
+
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="{% url 'frontpage' %}">Home</a></li>
+    </nav>
+
+    <section class="hero is-medium is-light is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">Log out</h1>
+                <h2 class="subtitle">Log out of your account</h2>
+            </div>
+        </div>
+    </section>
+
+    <div class="columns" id="logout-app">
+        <div class="column is-6 is-offset-3">
+            <form method="post" action="{% url 'frontpage' %}" class="mt-6">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                    <div class="notification is-danger">
+                        {{ form.non_field_errors }}
+
+                        {% for field in form %}
+                            {% if field.errors%}{{ field.label }}: {{ field.errors|striptags }}{% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                
+
+                <div class="field">
+                    <label>Username</label>
+                    
+                    <div class="control">
+                        <input type="text" name="username" id="id_username" class="input">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Password</label>
+                    
+                    <div class="control">
+                        <input type="password" name="password" id="id_password" class="input">
+                    </div>
+                </div>
+
+                <h2>Input Time</h2>
+                <form method="post" action=".">
+                    {% csrf_token %}
+
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <div class="select">
+                                <select name="hours">
+                                    <option value="0">0h</option>
+                                    {% for i in "x"|rjust:"12" %}
+                                        <option value="{{ forloop.counter }}">{{ forloop.counter }}h</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control">
+                        <div class="select">
+                            <select name="minutes">
+                                <option value="0">0m</option>
+                                {% for i in "x"|rjust:"59" %}
+                                    <option value="{{ forloop.counter }}">{{ forloop.counter }}m</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Date</label>
+
+                        <div class="control">
+                            <input type="date" id="id_date" name="date" class="input" value="{{ today|date:"Y-m-d" }}" placeholder="yyyy">
+                        </div>
+                    </div>
+                </form>
+                
+
+                <div class="field mt-4">
+                    <div class="control">
+                        <a href="{% url 'signout' %}" class="button is-danger">Logout</a>
+                        
+                    </div>
+                </div>
+
+                
+            </form>
+        </div>
+    </div>
+{% endblock %}

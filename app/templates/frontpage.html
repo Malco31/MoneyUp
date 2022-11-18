@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | {% endblock %}
+
+{% block content %}
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="{% url 'frontpage' %}">Home</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Logged In</a></li>
+        </ul>
+    </nav>
+
+    <div class="columns" id="login-app">
+        <div class="column is-4">
+            <h1 class="title">Users</h1>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="columns">
+        <div class="is-size-6">
+            <div class="notification">
+                
+                <p class="is-size-6"> {{request.user}} </p> 
+                
+                
+                
+                <a href="{% url 'myaccount' %}" class="button is-success">View</a>
+                <a href="{% url 'clockout' %}" class="button is-danger">Clockout</a>
+            </div> 
+        </div>
+    </div>
+
+   
+{% endblock %}

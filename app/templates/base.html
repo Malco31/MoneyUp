@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghante</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.delivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    
+</head>
+    <body>
+        <!-- Navbar -->
+        <div id="navbar-app">
+            <nav class="navbar{% if request.user.is_authenticated %} is-dark{% else %} is-light{% endif %}">
+                <div class="navbar-brand">
+                    <a href="/" class="navbar-item"><strong>Ghante</strong></a>
+                </div>
+
+                <div class="navbar-menu">
+                    <div class="navbar-end">
+                        
+                        
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                
+                                <a href="{% url 'login' %}" class="button">Log in</a>
+                                
+                            
+                                <!-- <a href="{% url 'signup' %}" class="button is-success"><strong>Create User</strong></a> -->
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- EndNavbar -->
+
+        <!-- Main -->
+        <section class="section">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="notification is-info">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}
+        </section>
+        <!-- EndMain -->
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="columns is-multiline">
+                <div class="column is-4">
+                    <h2 class="subtitle">Ghante</h2>
+                </div>
+                <div class="column is-offset-6 is-2">
+                    <ul>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of service</a></li>
+                    </ul>
+                </div>
+                <div class="column is-12 has-text-centered">
+                    <p>Copyright (c) 2022</p>
+                </div>
+            </div>
+        </footer>
+        <!-- EndFooter -->
+
+        <!-- Script -->
+        
+        {% block scripts %}
+            <script src="https://unpkg.com/vue@next"></script>
+        {% endblock %}
+        <!-- EndScript -->
+    </body>
+</html>
