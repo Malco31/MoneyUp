@@ -20,7 +20,7 @@
 
     <div class="columns" id="logout-app">
         <div class="column is-6 is-offset-3">
-            <form method="post" action="{% url 'frontpage' %}" class="mt-6">
+            {% comment %} <form method="post" action="{% url 'frontpage' %}" class="mt-6">
                 {% csrf_token %}
 
                 {% if form.errors %}
@@ -31,27 +31,20 @@
                             {% if field.errors%}{{ field.label }}: {{ field.errors|striptags }}{% endif %}
                         {% endfor %}
                     </div>
-                {% endif %}
+                {% endif %} {% endcomment %}
 
                 
 
-                <div class="field">
+                {% comment %} <div class="field">
                     <label>Username</label>
                     
                     <div class="control">
                         <input type="text" name="username" id="id_username" class="input">
                     </div>
-                </div>
+                </div> {% endcomment %}
 
-                <div class="field">
-                    <label>Password</label>
-                    
-                    <div class="control">
-                        <input type="password" name="password" id="id_password" class="input">
-                    </div>
-                </div>
 
-                <h2>Input Time</h2>
+                {% comment %} <h2>Input Time</h2> 
                 <form method="post" action=".">
                     {% csrf_token %}
 
@@ -86,18 +79,92 @@
                             <input type="date" id="id_date" name="date" class="input" value="{{ today|date:"Y-m-d" }}" placeholder="yyyy">
                         </div>
                     </div>
+                </form>  {% endcomment %}
+                <form method="POST" action="" class="mt-6">
+                    {% csrf_token %}
+    
+                    {% comment %} {% if form.errors %}
+                        <div class="notification is-danger">
+                            {{ form.non_field_errors }}
+    
+                            {% for field in form %}
+                                {% if field.errors%}{{ field.label }}: {{ field.errors|striptags }}{% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %} {% endcomment %}
+    
+                    
+    
+                    <div class="field">
+                        <label>Username</label>
+                        
+                        <div class="control">
+                            
+                            {{form.user}}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Hours</label>
+                        
+                        <div class="control">
+                            
+                            {{form.hours}}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Minutes</label>
+                        
+                        <div class="control">
+                            
+                            {{form.minutes}}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Date</label>
+                        
+                        <div class="control">
+                            
+                            {{form.date}}
+                        </div>
+                    </div> 
+
+                    
+    
+                    <input type="submit" value="Clockout">
+    
+    
+                    {% for message in messages %}
+                        <p> {{message}}</p>
+                    {% endfor %}
+                    
                 </form>
                 
 
-                <div class="field mt-4">
-                    <div class="control">
-                        <a href="{% url 'signout' %}" class="button is-danger">Logout</a>
-                        
-                    </div>
-                </div>
+                
+
 
                 
-            </form>
+            
         </div>
     </div>
 {% endblock %}
+
+
+{% comment %} <div class="field">
+                        <label>Date</label>
+
+                        <div class="control">
+                            <input type="date" id="id_date" name="date" class="input" value="{{ today|date:"Y-m-d" }}" placeholder="yyyy">
+                        </div>
+                    </div> {% endcomment %}
+
+
+                    {% comment %} <div class="field mt-4">
+                        <div class="control">
+                            <a href="{% url 'signout' %}" class="button is-danger">Logout</a>
+                            
+                        </div>
+                    </div>  {% endcomment %}

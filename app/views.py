@@ -8,13 +8,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import Group
-
+from app.forms import *
+from .decorators import admin_only
+from .models import Wages
 
 
 # Import Models
 
 
-from .models import Userprofile
 
 #
 # Create your views here.
@@ -50,7 +51,13 @@ def signout(request):
     return redirect('login')
 
 def clockout(request):
-    return render(request, 'clockout.html')
+    form = ClockoutForm()
+    if request.method == 'POST':
+        form = ClockoutForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Successfully clocked out!')
+    return render(request, 'clockout.html', {'form':form})
 
 @login_required(login_url='login')
 def frontpage(request):
@@ -63,7 +70,23 @@ def frontpage(request):
 
 @login_required
 def myaccount(request):
-    return render(request, 'myaccount.html')
+    my_entries = Entry.objects.filter(user= request.user)
+    initial_hours = 0
+    mins_to_hours = 0
+    for entry in my_entries:
+        initial_hours += entry.hours
+        mins_to_hours += entry.minutes / 60
+    total_hours = mins_to_hours + initial_hours
+    wage = Wages.objects.get(user=request.user)
+    total_earned = wage.payrate * total_hours
+    return render(request, 'myaccount.html', {'entries':my_entries, 'total_hours':total_hours, 'total_earned':total_earned})
+
+@login_required
+@admin_only
+def admin_account(request):
+    all_entries = Entry.objects.all()
+    return render(request, 'admin_account.html', {'entries':all_entries})
+
 
 @login_required
 def edit_profile(request):
@@ -99,3 +122,9 @@ def edit_profile(request):
 #         form = UserCreationForm()
 
 #     return render(request, 'signup.html', {'form':form})
+
+
+    # mins_to_hours = minutes / 60
+    # total_hours = mins_to_hours + hours
+    # total_earned = payrate * total_hours
+   
