@@ -11,7 +11,7 @@ from django.contrib.auth.models import Group
 from app.forms import *
 from .decorators import admin_only
 from .models import Wages
-
+from decimal import Decimal
 
 # Import Models
 
@@ -78,8 +78,8 @@ def myaccount(request):
         mins_to_hours += entry.minutes / 60
     total_hours = mins_to_hours + initial_hours
     wage = Wages.objects.get(user=request.user)
-    total_earned = wage.payrate * total_hours
-    return render(request, 'myaccount.html', {'entries':my_entries, 'total_hours':total_hours, 'total_earned':total_earned})
+    total_earned = wage.payrate * Decimal(total_hours)
+    return render(request, 'myaccount.html', {'entries':my_entries, 'hrs':total_hours, 'earns':total_earned})
 
 @login_required
 @admin_only

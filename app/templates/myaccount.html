@@ -32,8 +32,8 @@
     </div>
 
     <div class="columns is-multiline">
-        <div class="column is-10">
-            <div class="media mb-4">
+        <div class="column is-2">
+            <div class="media mb-10">
                 
 
                 <div class="media-content">
@@ -42,8 +42,32 @@
                         <pre>{% firstof entry.user.get_full_name user.username %}  {{ entry.hours }}hrs&{{ entry.minutes }}mins  {{ entry.date }}</pre>
                     {% endfor %}
                 </div>
+
+                <div class="column is-12 has-text-centered">
+                    {% for time in range(hrs) %}
+                        <p>{{ total_hours }}</p>
+                    {% endfor %}
+                </div>
+
             </div>
         </div>
     </div>
+
+
+    {% comment %} <div class="columns is-multiline">
+        <div class="column is-4">
+            <h2 class="subtitle">Ghante</h2>
+        </div>
+        <div class="column is-offset-6 is-2">
+            <ul>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of service</a></li>
+            </ul>
+        </div>
+        <div class="column is-12 has-text-centered">
+            <p>Copyright (c) 2022</p>
+        </div>
+    </div> {% endcomment %}
 
 {% endblock %}
