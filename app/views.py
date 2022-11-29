@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import Group
 from app.forms import *
-from .decorators import admin_only
+from .decorators import admin_only, customer_only
 from .models import Wages
 from decimal import Decimal
 
@@ -69,6 +69,7 @@ def frontpage(request):
         return render(request, 'frontpage.html')
 
 @login_required
+@customer_only
 def myaccount(request):
     my_entries = Entry.objects.filter(user= request.user)
     initial_hours = 0
@@ -76,9 +77,11 @@ def myaccount(request):
     for entry in my_entries:
         initial_hours += entry.hours
         mins_to_hours += entry.minutes / 60
-    total_hours = mins_to_hours + initial_hours
+    old_hours = mins_to_hours + initial_hours
     wage = Wages.objects.get(user=request.user)
-    total_earned = wage.payrate * Decimal(total_hours)
+    old_earned = wage.payrate * Decimal(old_hours)
+    total_earned = "{:.2f}".format(old_earned)
+    total_hours = "{:.2f}".format(old_hours)
     return render(request, 'myaccount.html', {'entries':my_entries, 'hrs':total_hours, 'earns':total_earned})
 
 @login_required

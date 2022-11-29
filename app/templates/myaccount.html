@@ -34,7 +34,6 @@
     <div class="columns is-multiline">
         <div class="column is-2">
             <div class="media mb-10">
-                
 
                 <div class="media-content">
                     <p class="title is-3">Entries</p>
@@ -43,31 +42,17 @@
                     {% endfor %}
                 </div>
 
-                <div class="column is-12 has-text-centered">
-                    {% for time in range(hrs) %}
-                        <p>{{ total_hours }}</p>
-                    {% endfor %}
-                </div>
-
             </div>
         </div>
     </div>
 
-
-    {% comment %} <div class="columns is-multiline">
-        <div class="column is-4">
-            <h2 class="subtitle">Ghante</h2>
+    <div class="columns is-multiline">
+        <div class="column text-is-centered">
+            <p class="title is-4">Total amount Earned</p>
+                <p class="title is-8">${{ earns }}</p>
+            <p class="title is-4">Total hours worked</p>
+                <p class="title is-8">{{ hrs }}</p>
         </div>
-        <div class="column is-offset-6 is-2">
-            <ul>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms of service</a></li>
-            </ul>
-        </div>
-        <div class="column is-12 has-text-centered">
-            <p>Copyright (c) 2022</p>
-        </div>
-    </div> {% endcomment %}
+    </div>
 
 {% endblock %}
