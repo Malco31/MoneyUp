@@ -12,6 +12,7 @@ from app.forms import *
 from .decorators import admin_only, customer_only
 from .models import Wages
 from decimal import Decimal
+from django.http import HttpResponseRedirect
 
 # Import Models
 
@@ -83,6 +84,13 @@ def myaccount(request):
     total_earned = "{:.2f}".format(old_earned)
     total_hours = "{:.2f}".format(old_hours)
     return render(request, 'myaccount.html', {'entries':my_entries, 'hrs':total_hours, 'earns':total_earned})
+
+def delete_entry(request, id):
+    delete_object = Entry.objects.get(id=id)
+    current_user = request.user
+    if current_user == delete_object.user:
+        Entry.objects.get(id=id).delete()
+        return HttpResponseRedirect("/myaccount/")
 
 @login_required
 @admin_only
