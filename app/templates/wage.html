@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Wage | {% endblock %}
+
+{% block content %}
+
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="{% url 'frontpage' %}">Home</a></li>
+    </nav>
+
+    <section class="hero is-medium is-light is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">Create Wage</h1>
+                <h2 class="subtitle">Decide an employee's payrate</h2>
+            </div>
+        </div>
+    </section>
+
+    <div class="columns" id="logout-app">
+        <div class="column is-6 is-offset-3">
+            {% comment %} <form method="post" action="{% url 'frontpage' %}" class="mt-6">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                    <div class="notification is-danger">
+                        {{ form.non_field_errors }}
+
+                        {% for field in form %}
+                            {% if field.errors%}{{ field.label }}: {{ field.errors|striptags }}{% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %} {% endcomment %}
+
+                
+
+                {% comment %} <div class="field">
+                    <label>Username</label>
+                    
+                    <div class="control">
+                        <input type="text" name="username" id="id_username" class="input">
+                    </div>
+                </div> {% endcomment %}
+
+
+                {% comment %} <h2>Input Time</h2> 
+                <form method="post" action=".">
+                    {% csrf_token %}
+
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <div class="select">
+                                <select name="hours">
+                                    <option value="0">0h</option>
+                                    {% for i in "x"|rjust:"12" %}
+                                        <option value="{{ forloop.counter }}">{{ forloop.counter }}h</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control">
+                        <div class="select">
+                            <select name="minutes">
+                                <option value="0">0m</option>
+                                {% for i in "x"|rjust:"59" %}
+                                    <option value="{{ forloop.counter }}">{{ forloop.counter }}m</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Date</label>
+
+                        <div class="control">
+                            <input type="date" id="id_date" name="date" class="input" value="{{ today|date:"Y-m-d" }}" placeholder="yyyy">
+                        </div>
+                    </div>
+                </form>  {% endcomment %}
+                <form method="POST" action="" class="mt-6">
+                    {% csrf_token %}
+    
+                    {% comment %} {% if form.errors %}
+                        <div class="notification is-danger">
+                            {{ form.non_field_errors }}
+    
+                            {% for field in form %}
+                                {% if field.errors%}{{ field.label }}: {{ field.errors|striptags }}{% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %} {% endcomment %}
+    
+                    
+    
+                    <div class="field">
+                        <label>Username</label>
+                        
+                        <div class="control">
+                            
+                            {{form.user}}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Payrate</label>
+                        
+                        <div class="control">
+                            
+                            {{form.payrate}}
+                        </div>
+                    </div>
+
+                    
+
+                    
+    
+                    <input type="submit" value="Done">
+    
+    
+                    {% for message in messages %}
+                        <p> {{message}}</p>
+                    {% endfor %}
+                    
+                </form>
+                
+
+                
+
+
+                
+            
+        </div>
+    </div>
+{% endblock %}

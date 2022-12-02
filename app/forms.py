@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Entry
+from .models import Entry, Wages
 
 from django.forms import ModelForm
 
@@ -14,6 +14,12 @@ class ClockoutForm(ModelForm):
     class Meta:
         model = Entry
         fields = ['user', 'hours', 'minutes', 'date']
+
+class WageForm(ModelForm):
+    class Meta:
+        model = Wages
+        fields = ['user', 'payrate']
+
 
 
         

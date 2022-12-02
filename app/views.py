@@ -60,6 +60,16 @@ def clockout(request):
             messages.info(request, 'Successfully clocked out!')
     return render(request, 'clockout.html', {'form':form})
 
+def add_wage(request):
+    form = WageForm()
+    if request.method == 'POST':
+        form = WageForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Successfully changed wage!')
+    return render(request, 'wage.html', {'form':form})
+
+
 @login_required(login_url='login')
 def frontpage(request):
     if request.method == "POST":

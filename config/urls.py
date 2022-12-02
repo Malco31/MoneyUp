@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
-from app.views import frontpage, signup, myaccount, signin, signout, edit_profile, clockout, admin_account, delete_entry
+from app.views import frontpage, add_wage, signup, myaccount, signin, signout, edit_profile, clockout, admin_account, delete_entry
 
 
 
@@ -32,6 +32,7 @@ urlpatterns = [
     path("myaccount/delete/<int:id>/", delete_entry, name ="delete"),
 
     path('admin_account/', admin_account, name='admin_account'),
+    path('wage/', add_wage, name='wage'),
     path('edit_profile/', edit_profile, name='edit_profile'),
     path('clockout/', clockout, name='clockout'),
     
