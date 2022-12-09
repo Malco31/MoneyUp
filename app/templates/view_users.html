@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}My account | {% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
     table {
       font-family: arial, sans-serif;
       border-collapse: collapse;
-      width: 30%;
+      width: 50%;
       margin-top: 5%
     }
     
@@ -36,7 +36,8 @@
     .foot{
       text-align:right;
     }
-</style>
+
+    </style>
     <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
             <li><a href="{% url 'frontpage' %}">Home</a></li>
@@ -52,43 +53,52 @@
                 </div>
 
                 <div class="media-content">
-                    <p class="title is-3">{{ user.get_full_name }}</p>
+                    <p class="title is-3">{% firstof user.get_full_name user.username %}</p>
                     
                     <p class="subtitle is-6">{{ user.email }}</p>
                 </div>
- 
+
+                
             </div>
 
             <a href="{% url 'edit_profile' %}" class="button is-info">Edit profile</a>
-            <a href="{% url 'wage' %}" class="button is-danger">Change a Payrate</a>
+            
         </div>
     </div>
 
-    <div class="columns is-multiline">
-        <div class="column is-3">
-            <div class="media mb-8">
-                <div class="media-content">
-                    <p class="title is-3">Workers</p>              
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <table>
         <tr>
           <th>Name</th>
-          <th>View</th>
+          <th>Payrate</th>
+          <th>Time</th>
+          <th>Date</th>
           <th>Delete</th>
+          
+          
         </tr>
-
         {% for entry in entries %}
             <tr>
-                <td>{%firstof entry.get_full_name entry.username%}</td>
-                <td><a href="{% url "view_user" entry.id %}"><button class="button is-success">view</button></a></td>
-                <td><a href="delete/{{entry.username}}/" ><button class="button is-danger">delete</button></a></td>
+                <td>{%firstof entry.user.get_full_name user.username%}</td>
+                <td>${{wage.payrate}}</td>
+                <td>{{ entry.hours }}hrs {{ entry.minutes }}mins</td>
+                <td>{{ entry.date }}</td>
+                <td><a href="{% url 'delete_user' entry.id%}" ><button class="button is-danger">delete</button></a></td>
             </tr>
         {% endfor %}
+        <tr>
+            <td></td>
+            <th>Total Earned</th>
+            <th>${{ earns }}</th>
+            <td><a href="admin_account/clear/{{entry.id}}" ><button class="button is-info">Clear</button></a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <th>Total Hours</th>
+            <th>{{ hrs }}</th>
+            <td></td>   
+        </tr>
     </table>
 
 {% endblock %}

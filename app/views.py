@@ -105,8 +105,78 @@ def delete_entry(request, id):
 @login_required
 @admin_only
 def admin_account(request):
-    all_entries = Entry.objects.all()
+    all_entries = User.objects.values()
+    print(all_entries)
+    print(all_entries[0]['username'])
     return render(request, 'admin_account.html', {'entries':all_entries})
+
+@login_required
+@admin_only
+def delete_user(request, username):
+    try:
+        u = User.objects.get(username = username)
+        u.delete()
+        messages.success(request, "The user is deleted")
+
+    except User.DoesNotExist:
+        messages.error(request, "User does not exist")
+        return render(request, "admin_account.html")
+    
+    except Exception as e:
+        return render(request, 'admin_account.html', {'err':e.message})
+    
+    return render(request, "frontpage.html")
+
+@login_required
+@admin_only
+def admin_delete_entry(request, username):
+    try:
+        u = Entry.objects.get(username = username)
+        u.delete()
+        messages.success(request, "The user is deleted")
+
+    except User.DoesNotExist:
+        messages.error(request, "User does not exist")
+        return render(request, "admin_account.html")
+    
+    except Exception as e:
+        return render(request, 'admin_account.html', {'err':e.message})
+    
+    return render(request, "frontpage.html")
+
+@login_required
+@admin_only
+def clear_money(request, username):
+    try:
+        entires = Entry.objects.filter(username = username)
+        for u in entires:
+            u.delete()
+        messages.success(request, "The user is deleted")
+
+    except User.DoesNotExist:
+        messages.error(request, "User does not exist")
+        return render(request, "admin_account.html")
+    
+    except Exception as e:
+        return render(request, 'admin_account.html', {'err':e.message})
+    
+    return render(request, "frontpage.html")
+
+@login_required
+@admin_only
+def view_user(request, user):
+    user_entries = Entry.objects.filter(user= user)
+    initial_hours = 0
+    mins_to_hours = 0
+    for entry in user_entries:
+        initial_hours += entry.hours
+        mins_to_hours += entry.minutes / 60
+    old_hours = mins_to_hours + initial_hours
+    wage = Wages.objects.get(user=user)
+    old_earned = wage.payrate * Decimal(old_hours)
+    total_earned = "{:.2f}".format(old_earned)
+    total_hours = "{:.2f}".format(old_hours)
+    return render(request, 'view_users.html', {'entries':user_entries, 'hrs':total_hours, 'earns':total_earned, 'wage':wage})
 
 
 @login_required
@@ -123,29 +193,5 @@ def edit_profile(request):
 
     return render(request, 'edit_profile.html')
 
-# def signup(request):
-#     if request.method == 'POST':
-#         form = UserCreationForm(request.POST)
 
-#         if form.is_valid():
-#             user = form.save()
-#             user.email= user.username
-#             user.save()
-
-#             userprofile = Userprofile.objects.create(user=user)
-
-#             login(request, user)
-#             logout(request, user)
-
-#             return redirect('frontpage', user)
-        
-#     else:
-#         form = UserCreationForm()
-
-#     return render(request, 'signup.html', {'form':form})
-
-
-    # mins_to_hours = minutes / 60
-    # total_hours = mins_to_hours + hours
-    # total_earned = payrate * total_hours
    

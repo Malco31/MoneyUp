@@ -3,6 +3,59 @@
 {% block title %}My account | {% endblock %}
 
 {% block content %}
+<style>
+
+
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 50%;
+      margin-top: 5%
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+      height:10px;
+    }
+
+    th {
+      height: 70px;
+      font-size: 20px;
+    }
+
+    td {
+      height: 60px;
+      font-size: 19px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    .foot{
+      text-align:right;
+    }
+
+    {% comment %} tr:hover {background-color: pink;}
+
+    
+    a.active,a:hover{
+      background: pink;
+      transition: .5s;
+      
+
+    } {% endcomment %}
+
+    .trash-button{
+      font-size:20px;
+    }
+
+    .trash-button:hover{
+      color:blue;
+    }
+
+    </style>
     <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
             <li><a href="{% url 'frontpage' %}">Home</a></li>
@@ -31,7 +84,7 @@
         </div>
     </div>
 
-    <div class="columns is-multiline">
+    {% comment %} <div class="columns is-multiline">
         <div class="column is-2">
             <div class="media mb-10">
 
@@ -53,6 +106,37 @@
             <p class="title is-4">Total hours worked</p>
                 <p class="title is-8">{{ hrs }}</p>
         </div>
-    </div>
+    </div> {% endcomment %}
+
+    <table>
+        <tr>
+          <th>Name</th>
+          <th>Time</th>
+          <th>Date</th>
+          <th>Delete</th>
+          
+          
+        </tr>
+        {% for entry in entries %}
+            <tr>
+                <td>{%firstof entry.user.get_full_name user.username%}</td>
+                <td>{{ entry.hours }}hrs {{ entry.minutes }}mins</td>
+                <td>{{ entry.date }}</td>
+                <td><a href="delete/{{entry.id}}/" ><button class="button is-danger">delete</button></a></td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <th>Total Earned</th>
+            <th>${{ earns }}</th>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <th>Total Hours</th>
+            <th>{{ hrs }}</th>
+            <td></td>   
+        </tr>
+    </table>
 
 {% endblock %}
