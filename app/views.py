@@ -69,6 +69,21 @@ def add_wage(request):
             messages.info(request, 'Successfully changed wage!')
     return render(request, 'wage.html', {'form':form})
 
+def edit_wage(request):
+    edit_object = Wages.objects.get(id=id)
+    current_user = request.user
+    if request.method == "POST":
+        form = Wages(request.POST)
+        if form.is_valid():
+            payrate = form.cleaned_data['payrate']
+            
+
+            edit_object.payrate = payrate
+            
+            edit_object.save()
+            return redirect('admin_account') 
+    return render(request, 'wage.html', {'form':form})
+
 
 @login_required(login_url='login')
 def frontpage(request):

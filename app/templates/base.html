@@ -1,11 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ghante</title>
+    <title>MoneyUp</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.delivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="icon" href="static/images/moneyUp.png">
     
 </head>
     <body>
@@ -13,7 +15,7 @@
         <div id="navbar-app">
             <nav class="navbar{% if request.user.is_authenticated %} is-dark{% else %} is-light{% endif %}">
                 <div class="navbar-brand">
-                    <a href="/" class="navbar-item"><strong>Ghante</strong></a>
+                    <a href="/" class="navbar-item"><strong>Money Up</strong></a>
                 </div>
 
                 <div class="navbar-menu">
