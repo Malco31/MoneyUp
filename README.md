@@ -13,4 +13,4 @@ these calculations until they get paid at the end of the two weeks.
 The employer can also see each employee's information to keep track of each day an individual worked and get an estimate of how much they have earned.
 
 ### Built With
-This application was made using Django's registration and admin system. It also includes HTML, CSS, and Javascript.
+This application was made using Django's registration and admin system. It also includes HTML and Python.
