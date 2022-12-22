@@ -10,7 +10,7 @@ The employee can also view their own personal account which will show them the t
 they have earned until the cycle is reset by the employer. An example of that would be if someone got paid every two weeks, they would be able to see
 these calculations until they get paid at the end of the two weeks.
 
-The employer can also see each employee's information to keep track of each day an individual worked and get an estimate of how much they have earned.
+The employer can also see each employee's information to keep track of each day an individual worked and get an estimate of how much they have earned. The employer is also able to reset an employee's entries after they are paid.
 
 ### Built With
 This application was made using Django's registration and admin system. It also includes HTML and Python.
